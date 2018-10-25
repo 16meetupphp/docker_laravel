@@ -1,4 +1,8 @@
 #!/bin/sh
+if [ ! -e "/var/www/composer.lock" ]
+then
+    cd /var/www/ && composer update
+fi
 while ! nc -z $DB_HOST $DB_PORT;
 do
   echo 'Waiting for database to be ready';
