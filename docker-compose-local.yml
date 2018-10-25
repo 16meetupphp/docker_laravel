@@ -13,9 +13,6 @@ services:
             - "$HTTP_PORT"
         links:
             - php
-        environment:
-            VIRTUAL_HOST: "$VIRTUAL_HOST"
-            LETSENCRYPT_HOST: "$SSL_HOST"
     php:
         build:
             context: ./
