@@ -1,0 +1,45 @@
+version: '2'
+services:
+    nginx:
+        build:
+            context: ./
+            dockerfile: nginx.dockerfile
+        restart: always
+        volumes:
+            - ./src/:/var/www
+        ports:
+            - "$HTTP_PORT:$HTTP_PORT"
+        expose:
+            - "$HTTP_PORT"
+        links:
+            - php
+    php:
+        build:
+            context: ./
+            dockerfile: php.dockerfile
+        restart: always 
+        depends_on: 
+            - larabase
+        volumes:
+            - ./src/:/var/www
+        links:
+            - larabase:mysql
+        environment:
+            DB_PORT: "$DB_PORT"
+            DB_HOST: "$DB_HOST"
+            DB_DATABASE: "$MYSQL_DATABASE"
+            DB_USERNAME: "$DB_USERNAME"
+            DB_PASSWORD: "$DB_PASSWORD"
+    larabase:
+        image: mysql:5.6
+        environment:
+            MYSQL_ROOT_PASSWORD: "$MYSQL_ROOT_PASSWORD"
+            MYSQL_DATABASE: "$MYSQL_DATABASE"
+        ports:
+            - "$DB_PORT:$DB_PORT"
+        expose:
+            - "$DB_PORT"
+networks:
+    default:
+        external:
+            name: nginx-proxy
