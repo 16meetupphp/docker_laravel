@@ -7,6 +7,8 @@ COPY ./conf/php/init.sh /home/init.sh
 
 RUN sed -i -e 's/\r$//' /home/init.sh
 
+RUN chmod +x /home/init.sh
+
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
 
