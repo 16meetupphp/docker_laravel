@@ -1,6 +1,6 @@
 FROM php:7-fpm
 
-RUN apt-get update && apt-get install -y libmcrypt-dev mysql-client netcat \
+RUN apt-get update && apt-get install -y libmcrypt-dev mysql-client netcat git \
     && pecl install mcrypt-1.0.1 && docker-php-ext-enable mcrypt && docker-php-ext-install pdo_mysql
 
 COPY ./conf/php/init.sh /home/init.sh
