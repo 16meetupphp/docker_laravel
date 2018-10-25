@@ -5,6 +5,8 @@ services:
             context: ./
             dockerfile: nginx.dockerfile
         restart: always
+        depends_on: 
+            - php
         volumes:
             - ./src/:/var/www
         ports:
