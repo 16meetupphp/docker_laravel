@@ -8,5 +8,6 @@ do
   echo 'Waiting for database to be ready';
   sleep 1;
 done;
+cd /var/www/ && chmod -R 777 storage
 cd /var/www/ && php artisan migrate:fresh && php artisan migrate --force
 php-fpm
